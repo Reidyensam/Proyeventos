@@ -3,45 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Eventos</title>
+    <title>Inicio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            display: flex;
-            justify-content: space-between;
+        .tab {
+            display: none;
         }
-        .content, .login {
-            width: 45%;
+        .tab-header button {
+            background-color: #f1f1f1;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        .login {
-            border: 1px solid #ccc;
+        .tab-header button.active {
+            background-color: #ccc;
+        }
+        .tab-content {
+            display: none;
             padding: 20px;
-            border-radius: 5px;
+            border-top: none;
         }
-        h1, h2 {
-            color: #333;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
+        .tab-content.active {
+            display: block;
         }
     </style>
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-links");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("defaultOpen").click();
+        });
+
+        async function handleRegister(event) {
+            event.preventDefault();
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+
+            const response = await fetch('http://127.0.0.1:5001/usuarios', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, email, password })
+            });
+
+            if (response.ok) {
+                alert('Registro exitoso!');
+            } else {
+                alert('Error en el registro');
+            }
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            const response = await fetch('http://127.0.0.1:5001/usuarios/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (response.ok) {
+                alert('Inicio de sesión exitoso!');
+            } else {
+                alert('Usuario o contraseña inválidos');
+            }
+        }
+    </script>
 </head>
 <body>
-    <div class="content">
-        <h1>Gestión de Eventos</h1>
-        <p>Ofrecemos una solución integral para la gestión de eventos, que incluye:</p>
-        <ul>
-            <li>Planificación y organización de eventos</li>
-            <[_{{{CITATION{{{_1{](https://github.com/tomwhross/budget/tree/c6382d1e03d2264df6306145563fc390c8def30f/models.py)[_{{{CITATION{{{_2{](https://github.com/R-36/projectBack/tree/5c1db5f44c3e161fd23fa51458c7840cd6bcede1/app.py)[_{{{CITATION{{{_3{](https://github.com/jhumphreys-p/StartWars-REST-API-Flask-Python/tree/0ee0a86035a9a7ea19d8d34489571f481060f9ea/docs%2F_QUICK_START.md)[_{{{CITATION{{{_4{](https://github.com/AzureKitsune/Shukudai/tree/13a158507d6cc20c8d97ba5816efb460829f1fa5/database.py)[_{{{CITATION{{{_5{](https://github.com/la9una/web/tree/ba1073ae044ebb7b538a3b13f0f9598f7c410bb6/docs%2Fbootstrap%2Falignci.md)
+    <header>
+        <h1>Bienvenido a Proyeventos</h1>
+    </header>
+    <main style="display: flex; justify-content: space-between;">
+        <section style="flex-grow: 1;">
+            <h2>Descripción del Proyecto</h2>
+            <p>Aquí puedes poner una descripción breve de tu proyecto...</p>
+        </section>
+        <aside style="width: 300px; margin-left: 20px; border-left: 1px solid #ccc; padding-left: 20px;">
+            <div class="tab-header">
+                <button class="tab-links" onclick="openTab(event, 'Login')" id="defaultOpen">Iniciar Sesión</button>
+                <button class="tab-links" onclick="openTab(event, 'Registro')">Registrarse</button>
+            </div>
+            <div id="Login" class="tab-content">
+                <h3>Login</h3>
+                <form onsubmit="handleLogin(event)">
+                    <label for="login-username">Usuario:</label>
+                    <input type="text" id="login-username" name="username" required>
+                    <br><br>
+                    <label for="login-password">Contraseña:</label>
+                    <input type="password" id="login-password" name="password" required>
+                    <br><br>
+                    <button type="submit">Iniciar Sesión</button>
+                </form>
+            </div>
+            <div id="Registro" class="tab-content">
+                <h3>Registro</h3>
+                <form onsubmit="handleRegister(event)">
+                    <label for="register-username">Usuario:</label>
+                    <input type="text" id="register-username" name="username" required>
+                    <br><br>
+                    <label for="register-email">Correo Electrónico:</label>
+                    <input type="email" id="register-email" name="email" required>
+                    <br><br>
+                    <label for="register-password">Contraseña:</label>
+                    <input type="password" id="register-password" name="password" required>
+                    <br><br>
+                    <button type="submit">Registrarse</button>
+                </form>
+            </div>
+        </aside>
+    </main>
+</body>
+</html>
