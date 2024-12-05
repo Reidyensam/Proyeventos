@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Evento</title>
+</head>
+<body>
+    <h2>Crear Evento</h2>
+    <form action="/api/eventos" method="post">
+        <label for="name">Nombre del Evento:</label>
+        <input type="text" id="name" name="name" required>
+        <br><br>
+        <label for="date">Fecha del Evento:</label>
+        <input type="datetime-local" id="date" name="date" required>
+        <br><br>
+        <label for="location">Ubicación:</label>
+        <input type="text" id="location" name="location" required>
+        <br><br>
+        <button type="submit">Crear Evento</button>
+    </form>
+</body>
+</html>

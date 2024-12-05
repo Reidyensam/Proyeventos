@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Eventos</title>
+</head>
+<body>
+    <h2>Lista de Eventos</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre del Evento</th>
+                <th>Fecha del Evento</th>
+                <th>Ubicación</th>
+            </tr>
+        </thead>
+        <tbody id="eventList">
+            <!-- Los eventos se agregarán aquí -->
+        </tbody>
+    </table>
+    <script>
+        fetch('/api/eventos')
+            .then(response => response.json())
+            .then(data => {
+                const eventList = document.getElementById('eventList');
+                data.forEach(event => {
+                    const row = eventList.insertRow();
+                    row.insertCell(0).textContent = event.name;
+                    row.insertCell(1).textContent = event.date;
+                    row.insertCell(2).textContent = event.location;
+                });
+            });
+    </script>
+</body>
+</html>
