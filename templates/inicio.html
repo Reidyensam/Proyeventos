@@ -175,10 +175,9 @@
         <h1>Proyeventos</h1>
     </header>
     <nav>
-        <a href="#">Inicio</a>
-        <a href="#">Servicios</a>
-        <a href="#">Eventos</a>
-        <a href="#">Contacto</a>
+        <a href="{{ url_for('index') }}">Inicio</a>
+        <a href="{{ url_for('login') }}">Eventos</a>
+        <a href="{{ url_for('contacto') }}">Contacto</a>
     </nav>
     <div class="container">
         <div class="main-content">
@@ -212,15 +211,48 @@
                         <a href="#">MÁS INFORMACIÓN</a>
                     </div>
                     <div class="event-section">
-                        <img src="static/imagenes/4.png">
+                        <img src="static/imagenes/4.png" alt="Icono de Cumpleaños">
                         <h3>Cumpleaños</h3>
                         <p>Nos encargamos de todos los preparativos para tu cumpleaños, desde la organización hasta la invitación de tus amigos y familiares. Proporcionamos toda la información de dirección y detalles necesarios para que tu celebración sea especial y libre de preocupaciones.</p>
                         <a href="#">MÁS INFORMACIÓN</a>
-                    </div>
+                    </div>                    
                     <div class="event-section">
-                        <img src="static/imagenes/5.png" alt="Icono de Eventos Empresariales">
+                        <img src="static/imagenes/5.png" alt="Icono de Talleres y Conferencias">
                         <h3>Talleres y Conferencias</h3>
-                        <p>Nos encargamos de organizar tus talleres y conferencias, desde la planificación hasta la invitación de los participantes. Proporcionamos toda la información necesaria sobre la dirección y los detalles logísticos para asegurar el éxito de tu evento educativo.</p>
+                        <p>Nos encargamos de organizar tus talleres y conferencias, desde la planificación hasta la invitación de los participantes. Proporcionamos toda la información necesaria sobre la dirección y detalles logísticos para asegurar el éxito de tu evento.</p>
                         <a href="#">MÁS INFORMACIÓN</a>
                     </div>
-                    <div class="event
+                </div>
+            </div>
+            <div class="sidebar">
+                <div id="login-container" class="container-content">
+                    <h2>Iniciar Sesión</h2>
+                    <form onsubmit="handleLogin(event)">
+                        <input type="text" id="login-username" name="username" placeholder="Usuario" required>
+                        <input type="password" id="login-password" name="password" placeholder="Contraseña" required>
+                        <button type="submit">Entrar</button>
+                    </form>
+                    <div class="toggle">
+                        <p>¿Nuevo aquí? <a href="javascript:void(0)" onclick="openRegisterPage()">Regístrate</a></p>
+                    </div>
+                </div>
+                <div id="register-container" class="container-content" style="display: none;">
+                    <h2>Registrarse</h2>
+                    <form action="/usuarios" method="post">
+                        <input type="text" name="username" placeholder="Usuario" required>
+                        <input type="email" name="email" placeholder="Correo Electrónico" required>
+                        <input type="password" name="password" placeholder="Contraseña" required>
+                        <button type="submit">Registrarse</button>
+                    </form>
+                    <div class="toggle">
+                        <p>¿Ya tienes cuenta? <a href="javascript:void(0)" onclick="toggleForm()">Inicia Sesión</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Proyeventos. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

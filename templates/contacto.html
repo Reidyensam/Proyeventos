@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Proyeventos</title>
+    <title>Contacto - Proyeventos</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
         body {
@@ -40,44 +40,26 @@
         }
         .main-content {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: calc(100vh - 60px);  /* Ajusta la altura para centrar */
+            justify-content: space-between;
+            margin: 20px 0;
         }
-        .login-container {
+        .content {
             width: 100%;
-            max-width: 400px;
             background: white;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
         }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #ff7e5f;
-            border: none;
-            border-radius: 5px;
+        footer {
+            background-color: #333;
             color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #feb47b;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
         .btn-return {
-            margin-top: 10px;
+            margin-top: 20px;
             display: inline-block;
             padding: 10px 20px;
             background-color: #ff7e5f;
@@ -95,28 +77,27 @@
     <header>
         <h1>Proyeventos</h1>
     </header>
-    <nav>
-        <a href="{{ url_for('index') }}">Inicio</a>
-        <a href="{{ url_for('login') }}">Eventos</a>
-        <a href="{{ url_for('contacto') }}">Contacto</a>
-    </nav>
+ <!-- Parte del archivo inicio.html -->
+<nav>
+    <a href="{{ url_for('index') }}">Inicio</a>
+    <a href="{{ url_for('login') }}">Eventos</a>
+    <a href="{{ url_for('contacto') }}">Contacto</a>
+</nav>
+
     <div class="container">
         <div class="main-content">
-            <div class="login-container">
-                <h2>Iniciar Sesión</h2>
-                <form action="/api/usuarios/login" method="post">
-                    <label for="username">Usuario:</label>
-                    <input type="text" id="username" name="username" required>
-                    <br>
-                    <label for="password">Contraseña:</label>
-                    <input type="password" id="password" name="password" required>
-                    <br>
-                    <button type="submit">Iniciar Sesión</button>
-                </form>
-                <div class="toggle"></div>
-                    <p>¿No tienes una cuenta? <a href="{{ url_for('registro') }}">Regístrate</a></p>
-                </div>
+            <div class="content">
+                <h2>Contacto</h2>
+                <p>Nos puedes encontrar en nuestras oficinas ubicadas en:</p>
+                <p><strong>Dirección:</strong> Calle Justo Germán Varela 2587, La Paz, Bolivia</p>
+                <p><strong>Teléfono:</strong> +591-70167758</p>
+                <p><strong>Email:</strong> reidyensam@gmail.com</p>
+                <a href="{{ url_for('index') }}" class="btn-return">Regresar a la Página Principal</a>
+            </div>
         </div>
     </div>
+    <footer>
+        <p>&copy; 2024 Proyeventos. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>
