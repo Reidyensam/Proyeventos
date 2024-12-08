@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Evento - Proyeventos</title>
+    <title>Enviar Notificación - Proyeventos</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
         body {
@@ -44,7 +44,7 @@
             align-items: center;
             height: calc(100vh - 60px);
         }
-        .event-form-container {
+        .notification-form-container {
             width: 100%;
             max-width: 400px;
             background: white;
@@ -56,7 +56,7 @@
             text-align: center;
             color: #333;
         }
-        input[type="text"], input[type="datetime-local"] {
+        input[type="text"], input[type="email"], textarea {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -76,19 +76,6 @@
         button:hover {
             background: #feb47b;
         }
-        .btn-return {
-            margin-top: 10px;
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #ff7e5f;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .btn-return:hover {
-            background-color: #feb47b;
-            transition: background-color 0.3s ease;
-        }
     </style>
 </head>
 <body>
@@ -96,25 +83,32 @@
         <h1>Proyeventos</h1>
     </header>
     <nav>
-        <a href="{{ url_for('lista_eventos') }}">Lista de Eventos</a>
-        <a href="#">Lista de Invitados</a>
         <a href="{{ url_for('index') }}">Salir</a>
+        <a href="{{ url_for('crear_evento') }}">Crear Evento</a>
+        <a href="{{ url_for('lista_eventos') }}">Lista de Eventos</a>
+        
     </nav>
     <div class="container">
         <div class="main-content">
-            <div class="event-form-container">
-                <h2>Crear Evento</h2>
-                <form action="{{ url_for('crear_evento') }}" method="post">
+            <div class="notification-form-container">
+                <h2>Enviar Notificación</h2>
+                <form action="{{ url_for('enviar_notificacion') }}" method="post">
                     <label for="name">Nombre del Evento:</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="name" value="{{ name }}" readonly>
                     <br>
                     <label for="date">Fecha del Evento:</label>
-                    <input type="datetime-local" id="date" name="date" required>
+                    <input type="text" id="date" name="date" value="{{ date }}" readonly>
                     <br>
-                    <label for="location">Ubicación:</label>
-                    <input type="text" id="location" name="location" required>
+                    <label for="location">Ubicación del Evento:</label>
+                    <input type="text" id="location" name="location" value="{{ location }}" readonly>
                     <br>
-                    <button type="submit">Crear Evento</button>
+                    <label for="recipients">Destinatarios (Correos Electrónicos):</label>
+                    <input type="text" id="recipients" name="recipients" placeholder="correo1@example.com, correo2@example.com, ..." required>
+                    <br>
+                    <label for="message">Mensaje:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                    <br>
+                    <button type="submit">Enviar Notificación</button>
                 </form>
            </div>
         </div>

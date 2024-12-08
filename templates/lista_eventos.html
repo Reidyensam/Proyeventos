@@ -3,34 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Eventos</title>
+    <title>Lista de Eventos - Proyeventos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #444;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        nav a:hover {
+            background-color: #555;
+            transition: background-color 0.3s ease;
+        }
+        .main-content {
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .btn-notification {
+            background-color: #ff7e5f;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn-notification:hover {
+            background-color: #feb47b;
+        }
+    </style>
 </head>
 <body>
-    <h2>Lista de Eventos</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre del Evento</th>
-                <th>Fecha del Evento</th>
-                <th>Ubicación</th>
-            </tr>
-        </thead>
-        <tbody id="eventList">
-            <!-- Los eventos se agregarán aquí -->
-        </tbody>
-    </table>
-    <script>
-        fetch('/api/eventos')
-            .then(response => response.json())
-            .then(data => {
-                const eventList = document.getElementById('eventList');
-                data.forEach(event => {
-                    const row = eventList.insertRow();
-                    row.insertCell(0).textContent = event.name;
-                    row.insertCell(1).textContent = event.date;
-                    row.insertCell(2).textContent = event.location;
-                });
-            });
-    </script>
+    <header>
+        <h1>Proyeventos</h1>
+    </header>
+    <nav>
+        <a href="{{ url_for('index') }}">Salir</a>
+        <a href="{{ url_for('crear_evento') }}">Crear Evento</a>
+    </nav>
+    <div class="container">
+        <div class="main-content">
+            <h2>Lista de Eventos</h2>
+            <table>
+                <tr>
+                    <th>Nombre del Evento</th>
+                    <th>Fecha</th>
+                    <th>Ubicación</th>
+                    <th>Acciones</th>
+                </tr>
+                {% for evento in eventos %}
+                <tr>
+                    <td>{{ evento.name }}</td>
+                    <td>{{ evento.date }}</td>
+                    <td>{{ evento.location }}</td>
+                    <td>
+                        <form action="{{ url_for('notificacion_evento') }}" method="post">
+                            <input type="hidden" name="name" value="{{ evento.name }}">
+                            <input type="hidden" name="date" value="{{ evento.date }}">
+                            <input type="hidden" name="location" value="{{ evento.location }}">
+                            <button type="submit" class="btn-notification">Enviar Notificación</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 </body>
 </html>
