@@ -104,7 +104,7 @@
         <div class="main-content">
             <div class="register-container">
                 <h2>Registro de Usuario</h2>
-                <form action="/api/usuarios" method="post">
+                <form action="{{ url_for('registro') }}" method="post">
                     <label for="username">Usuario:</label>
                     <input type="text" id="username" name="username" required>
                     <br>
@@ -120,4 +120,4 @@
         </div>
     </div>
 </body>
-</html>
+</html>  
